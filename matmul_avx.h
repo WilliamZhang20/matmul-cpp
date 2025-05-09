@@ -7,6 +7,7 @@
 constexpr int TILE = 64;
 constexpr int SIMD_WIDTH = 8;
 constexpr int NUM_THREADS = 12;
+constexpr int ALIGNMENT = 32; // Bytes for AVX2 (__m256)
 
 // Matrix multiplication with AVX2, loop peeling, OpenMP, and cache blocking
 void matmul_avx(const float* A, const float* B, float* C, int M, int K, int N) {

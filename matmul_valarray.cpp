@@ -8,7 +8,7 @@ constexpr int BLOCK_SIZE = 32;
 
 void matmul(const std::valarray<double>& A, const std::valarray<double>& B, std::valarray<double>& C, int M, int K, int N) {
     // Peeling over the rows and columns at the edges
-    #pragma omp parallel for
+    #pragma omp parallel for num_threads(12)
     for (int i = 0; i < std::min(BLOCK_SIZE, M); ++i) {
         for (int j = 0; j < std::min(BLOCK_SIZE, N); ++j) {
             for (int k = 0; k < K; ++k) {
@@ -74,7 +74,7 @@ void matmul(const std::valarray<double>& A, const std::valarray<double>& B, std:
 int main() {
     int M = 1024;  // Number of rows of A and C
     int K = 512;   // Number of columns of A and rows of B
-    int N = 1024;  // Number of columns of B and C
+    int N = 1024*0.75;  // Number of columns of B and C
     
     std::valarray<double> A(M * K), B(K * N), C(M * N);
 
